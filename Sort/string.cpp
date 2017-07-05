@@ -67,7 +67,7 @@ protected:
 
 void TestString()
 {
-	string s1("123");
+	string s1;
 	string s2 = s1;
 	string s3(s2);
 	cout << s1 << endl;
