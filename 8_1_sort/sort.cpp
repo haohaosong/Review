@@ -7,7 +7,7 @@
 
 #include<iostream>
 using namespace std;
-
+#include<stack>
 void PrintArr(int* arr,size_t n)
 {
 	for(int i=0; i<n; ++i)
@@ -74,11 +74,43 @@ void quickSort(int* arr,int left, int right)
 	}
 }
 
+void quickSortNonR(int* arr,size_t n)
+{
+	int left = 0;
+	int right = n-1;
+
+	stack<int> s;
+	s.push(right);
+	s.push(left);
+
+	while(!s.empty())
+	{
+		left = s.top();
+		s.pop();
+		right = s.top();
+		s.pop();
+
+		int mid = partSort(arr,left,right);
+
+		if(left < mid-1)
+		{
+			s.push(mid-1);
+			s.push(left);
+		}
+
+		if(mid+1 < right)
+		{
+			s.push(right);
+			s.push(mid+1);
+		}
+	}
+}
+
 int main()
 {
 	int arr[10] = {1,3,5,7,9,2,4,6,8,0};
 //	BubbleSort(arr,10);
-	quickSort(arr,0,9);
+	quickSortNonR(arr,10);
 	PrintArr(arr,10);
 	return 0;
 }
